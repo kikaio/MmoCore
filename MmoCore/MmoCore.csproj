@@ -104,7 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\Enum.cs" />
+    <Compile Include="Packets\MmoCorePacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocols\MmoTranslate.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
