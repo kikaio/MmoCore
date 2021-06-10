@@ -29,7 +29,8 @@ namespace MmoCore.Packets
         {
             cType = Translate.Read<CONTENT_TYPE>(data);
         }
-
+        
+        //this method must call Packet(header, data) constructor
         public virtual void SerRead()
         {
             pType = (PACKET_TYPE)Translate.Read<ushort>(data);
@@ -39,8 +40,83 @@ namespace MmoCore.Packets
         public virtual void SerWrite()
         {
             Translate.Write(data, (ushort)pType);
-            Translate.Write<CONTENT_TYPE>(data, cType);
+            Translate.Write(data, cType);
         }
     }
 
+    public class HBNoti : MmoCorePacket
+    {
+        public HBNoti()
+            : base(PACKET_TYPE.NOTI, CONTENT_TYPE.HB_CHECK)
+        {
+        }
+        public override void SerRead()
+        {
+            base.SerRead();
+        }
+
+        public override void SerWrite()
+        {
+            base.SerWrite();
+        }
+    }
+
+    public class HelloReq : MmoCorePacket
+    {
+        public HelloReq()
+            : base(PACKET_TYPE.REQ, CONTENT_TYPE.HELLO)
+        {
+        }
+        public override void SerRead()
+        {
+            base.SerRead();
+        }
+
+        public override void SerWrite()
+        {
+            base.SerWrite();
+        }
+    }
+
+    public class WelcomeAns : MmoCorePacket
+    {
+        public long sId { get; set; }
+        public WelcomeAns()
+            : base(PACKET_TYPE.ANS, CONTENT_TYPE.WELCOME)
+        {
+        }
+        public override void SerRead()
+        {
+            base.SerRead();
+            sId = Translate.Read<long>(data);
+        }
+
+        public override void SerWrite()
+        {
+            base.SerWrite();
+            Translate.Write(data, sId);
+            UpdateHeader();
+        }
+    }
+
+    public class ChatNoti: MmoCorePacket
+    {
+        public string msg { get; set; }
+        public ChatNoti()
+            : base(PACKET_TYPE.NOTI, CONTENT_TYPE.CHAT)
+        {
+        }
+        public override void SerRead()
+        {
+            base.SerRead();
+            msg = Translate.Read<string>(data);
+        }
+
+        public override void SerWrite()
+        {
+            base.SerWrite();
+            Translate.Write(data, msg);
+            UpdateHeader();
+        }
+    }
 }
