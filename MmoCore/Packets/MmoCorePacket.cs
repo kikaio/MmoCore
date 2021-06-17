@@ -33,13 +33,13 @@ namespace MmoCore.Packets
         //this method must call Packet(header, data) constructor
         public virtual void SerRead()
         {
-            pType = (PACKET_TYPE)Translate.Read<ushort>(data);
+            pType = Translate.Read<PACKET_TYPE>(data);
             cType = Translate.Read<CONTENT_TYPE>(data);
         }
 
         public virtual void SerWrite()
         {
-            Translate.Write(data, (ushort)pType);
+            Translate.Write(data, pType);
             Translate.Write(data, cType);
         }
     }
