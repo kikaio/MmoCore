@@ -18,7 +18,7 @@ namespace MmoCore.Protocols
                 return;
             Translate.RegistCustom<CONTENT_TYPE>((NetStream _s, object _val)
                 => {
-                    _s.WriteInt32((ushort)_val);
+                    _s.WriteUInt16((ushort)_val);
                 },
             (NetStream _s) => {
                 var ret = default(CONTENT_TYPE);

@@ -35,7 +35,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>libs\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="CoreNet">
+    <Reference Include="CoreNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>libs\CoreNet.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
@@ -107,9 +108,6 @@
     <Compile Include="Packets\MmoCorePacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocols\MmoTranslate.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

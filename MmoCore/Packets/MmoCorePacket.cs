@@ -44,23 +44,6 @@ namespace MmoCore.Packets
         }
     }
 
-    public class HBNoti : MmoCorePacket
-    {
-        public HBNoti()
-            : base(PACKET_TYPE.NOTI, CONTENT_TYPE.HB_CHECK)
-        {
-        }
-        public override void SerRead()
-        {
-            base.SerRead();
-        }
-
-        public override void SerWrite()
-        {
-            base.SerWrite();
-        }
-    }
-
     public class HelloReq : MmoCorePacket
     {
         public HelloReq()
@@ -75,6 +58,7 @@ namespace MmoCore.Packets
         public override void SerWrite()
         {
             base.SerWrite();
+            UpdateHeader();
         }
     }
 
