@@ -13,6 +13,7 @@ namespace MmoCore.Enums
         HB_CHECK,
         HELLO,
         WELCOME,
+        DH_KEY_CHECK,
         CHAT,
         END,
     }
