@@ -18,23 +18,26 @@ namespace MmoCore.Packets
     {
         public CONTENT_TYPE cType { get; set; } = CONTENT_TYPE.NONE;
 
-        public MmoCorePacket(PACKET_TYPE _pt, CONTENT_TYPE _ct)
-            : base(128)
+        public MmoCorePacket()
         {
-            pType = _pt;
-            cType = _ct;
         }
 
         public MmoCorePacket(Packet _p) : base(_p)
         {
             cType = Translate.Read<CONTENT_TYPE>(data);
         }
+
+        public MmoCorePacket(PACKET_TYPE _pt, CONTENT_TYPE _ct)
+            : base(128)
+        {
+            pType = _pt;
+            cType = _ct;
+        }
         
+
         //this method must call Packet(header, data) constructor
         public virtual void SerRead()
         {
-            pType = Translate.Read<PACKET_TYPE>(data);
-            cType = Translate.Read<CONTENT_TYPE>(data);
         }
 
         public virtual void SerWrite()
@@ -50,9 +53,16 @@ namespace MmoCore.Packets
             : base(PACKET_TYPE.REQ, CONTENT_TYPE.HELLO)
         {
         }
+        public HelloReq(MmoCorePacket _mp)
+        {
+            pType = _mp.pType;
+            cType = _mp.cType;
+            data = _mp.data;
+            header = _mp.header;
+        }
+
         public override void SerRead()
         {
-            base.SerRead();
         }
 
         public override void SerWrite()
@@ -69,9 +79,17 @@ namespace MmoCore.Packets
             : base(PACKET_TYPE.ANS, CONTENT_TYPE.WELCOME)
         {
         }
+
+        public WelcomeAns(MmoCorePacket _mp)
+        {
+            pType = _mp.pType;
+            cType = _mp.cType;
+            data = _mp.data;
+            header = _mp.header;
+        }
+
         public override void SerRead()
         {
-            base.SerRead();
             sId = Translate.Read<long>(data);
         }
 
@@ -83,16 +101,23 @@ namespace MmoCore.Packets
         }
     }
 
-    public class ChatNoti: MmoCorePacket
+    public class ChatNoti : MmoCorePacket
     {
         public string msg { get; set; }
         public ChatNoti()
             : base(PACKET_TYPE.NOTI, CONTENT_TYPE.CHAT)
         {
         }
+        public ChatNoti(MmoCorePacket _mp)
+        {
+            pType = _mp.pType;
+            cType = _mp.cType;
+            data = _mp.data;
+            header = _mp.header;
+        }
+
         public override void SerRead()
         {
-            base.SerRead();
             msg = Translate.Read<string>(data);
         }
 
