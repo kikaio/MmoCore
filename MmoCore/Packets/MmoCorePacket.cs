@@ -33,7 +33,7 @@ namespace MmoCore.Packets
             pType = _pt;
             cType = _ct;
         }
-        
+
 
         //this method must call Packet(header, data) constructor
         public virtual void SerRead()
@@ -128,4 +128,54 @@ namespace MmoCore.Packets
             UpdateHeader();
         }
     }
+
+    public class DHKeyReq : MmoCorePacket
+    {
+        public string dhKey { get; set; }
+        public DHKeyReq()
+            :base(PACKET_TYPE.REQ, CONTENT_TYPE.DH_KEY_CHECK)
+        {
+        }
+        public DHKeyReq(MmoCorePacket _mp)
+        {
+            pType = _mp.pType;
+            cType = _mp.cType;
+            data = _mp.data;
+            header = _mp.header;
+        }
+
+        public override void SerRead()
+        {
+            dhKey = Translate.Read<string>(data);
+        }
+        public override void SerWrite()
+        {
+            base.SerWrite();
+            Translate.Write(data, dhKey);
+            UpdateHeader();
+        }
+    }
+
+    public class DHKeyAns : MmoCorePacket
+    {
+        public DHKeyAns()
+            : base(PACKET_TYPE.ANS, CONTENT_TYPE.DH_KEY_CHECK)
+        {
+        }
+
+        public DHKeyAns(MmoCorePacket _mp)
+        {
+            pType = _mp.pType;
+            cType = _mp.cType;
+            data = _mp.data;
+            header = _mp.header;
+        }
+
+        public override void SerWrite()
+        {
+            base.SerWrite();
+            UpdateHeader();
+        }
+    }
+
 }
