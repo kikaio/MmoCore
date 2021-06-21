@@ -131,7 +131,6 @@ namespace MmoCore.Packets
 
     public class DHKeyReq : MmoCorePacket
     {
-        public string dhKey { get; set; }
         public DHKeyReq()
             :base(PACKET_TYPE.REQ, CONTENT_TYPE.DH_KEY_CHECK)
         {
@@ -146,18 +145,17 @@ namespace MmoCore.Packets
 
         public override void SerRead()
         {
-            dhKey = Translate.Read<string>(data);
         }
         public override void SerWrite()
         {
             base.SerWrite();
-            Translate.Write(data, dhKey);
             UpdateHeader();
         }
     }
 
     public class DHKeyAns : MmoCorePacket
     {
+        public string dhKey { get; set; }
         public DHKeyAns()
             : base(PACKET_TYPE.ANS, CONTENT_TYPE.DH_KEY_CHECK)
         {
@@ -170,10 +168,15 @@ namespace MmoCore.Packets
             data = _mp.data;
             header = _mp.header;
         }
+        public override void SerRead()
+        {
+            dhKey = Translate.Read<string>(data);
+        }
 
         public override void SerWrite()
         {
             base.SerWrite();
+            Translate.Write(data, dhKey);
             UpdateHeader();
         }
     }
